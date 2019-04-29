@@ -1,10 +1,13 @@
 import dotenv from 'dotenv';
 import { resolve } from 'path';
 
-dotenv.config({ path: resolve('../', '.env') });
+const config = dotenv.config({ path: resolve('../', '.env') });
+console.log('config', config);
 
 import { Options } from 'graphql-yoga';
+import { createConnection } from 'typeorm';
 import app from './app';
+import connectionOptions from './ormConfig';
 
 const PORT: number | string = process.env.PORT || 4000;
 const PLAYGROUND_ENDPOINT: string = '/playground';
@@ -18,4 +21,11 @@ const appOptions: Options = {
 
 const handleAppStart = () => console.log(`🚀Listening on port ${PORT}`);
 
-app.start(appOptions, handleAppStart);
+console.log('begin connection');
+
+createConnection(connectionOptions)
+  .then(() => {
+    console.log('end connection');
+    app.start(appOptions, handleAppStart);
+  })
+  .catch(error => console.log(error));

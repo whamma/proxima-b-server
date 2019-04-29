@@ -1,0 +1,9 @@
+type CreateUserResponse {
+  ok: Boolean!
+  error: String
+  user: User
+}
+
+type Mutation {
+  CreateUser(email: String, name: String!): CreateUserResponse!
+}
