@@ -1,0 +1,18 @@
+# GetUsers 응답 type
+type GetUsersResponse {
+  ok: Boolean!
+  error: String
+  users: [User]
+}
+
+# GetUsers Query type
+type Query {
+  GetUsers: GetUsersResponse!
+}
+
+# user graphql type
+type User {
+  id: Int!
+  email: String
+  name: String
+}
