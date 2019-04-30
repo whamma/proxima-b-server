@@ -8,16 +8,23 @@ type Mutation {
   CreateUser(email: String, name: String!): CreateUserResponse!
 }
 
+type GetUserResponse {
+  ok: Boolean!
+  error: String
+  user: User
+}
+
+# GetUsers Query type
+type Query {
+  GetUser(id: Int!): GetUserResponse!
+  GetUsers: GetUsersResponse!
+}
+
 # GetUsers 응답 type
 type GetUsersResponse {
   ok: Boolean!
   error: String
   users: [User]
-}
-
-# GetUsers Query type
-type Query {
-  GetUsers: GetUsersResponse!
 }
 
 # user graphql type
