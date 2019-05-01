@@ -12,7 +12,7 @@ const resolvers: Resolvers = {
       args: CreateUserMutationArgs,
     ): Promise<CreateUserResponse> => {
       try {
-        const user = await User.create({ ...args }).save();
+        const user = await User.create({ ...args.createUserInput }).save();
         console.log(user);
         return {
           ok: true,

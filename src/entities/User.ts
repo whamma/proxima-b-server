@@ -1,4 +1,16 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  BaseEntity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  BeforeInsert,
+  BeforeUpdate,
+} from 'typeorm';
+import bcrypt from 'bcrypt';
+
+const BCRYPT_ROUNDS = 10;
 
 @Entity({ name: 'users' })
 class User extends BaseEntity {
@@ -10,6 +22,28 @@ class User extends BaseEntity {
 
   @Column({ type: 'text' })
   name: string;
+
+  @Column({ type: 'varchar', length: 255, select: false })
+  password: string;
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: Date;
+
+  private hashPassword(password: string): Promise<string> {
+    return bcrypt.hash(password, BCRYPT_ROUNDS);
+  }
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  async savePassword(): Promise<void> {
+    if (this.password) {
+      const hashedPassword = await this.hashPassword(this.password);
+      this.password = hashedPassword;
+    }
+  }
 }
 
 export default User;

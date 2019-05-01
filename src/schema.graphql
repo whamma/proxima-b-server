@@ -4,8 +4,14 @@ type CreateUserResponse {
   user: User
 }
 
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
 type Mutation {
-  CreateUser(email: String, name: String!): CreateUserResponse!
+  CreateUser(createUserInput: CreateUserInput!): CreateUserResponse!
 }
 
 type GetUserResponse {
@@ -28,8 +34,13 @@ type GetUsersResponse {
 }
 
 # user graphql type
+scalar DateTime
+
 type User {
   id: Int!
   email: String
   name: String
+  password: String
+  createdAt: DateTime
+  updatedAt: DateTime
 }

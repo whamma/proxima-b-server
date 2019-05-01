@@ -4,6 +4,12 @@ type CreateUserResponse {
   user: User
 }
 
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
 type Mutation {
-  CreateUser(email: String, name: String!): CreateUserResponse!
+  CreateUser(createUserInput: CreateUserInput!): CreateUserResponse!
 }
