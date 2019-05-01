@@ -1,4 +1,4 @@
-export const typeDefs = ["type CreateUserResponse {\n  ok: Boolean!\n  error: String\n  user: User\n}\n\ninput CreateUserInput {\n  email: String!\n  name: String!\n  password: String!\n}\n\ntype Mutation {\n  CreateUser(createUserInput: CreateUserInput!): CreateUserResponse!\n}\n\ntype GetUserResponse {\n  ok: Boolean!\n  error: String\n  user: User\n}\n\n# GetUsers Query type\ntype Query {\n  GetUser(id: Int!): GetUserResponse!\n  GetUsers: GetUsersResponse!\n}\n\n# GetUsers 응답 type\ntype GetUsersResponse {\n  ok: Boolean!\n  error: String\n  users: [User]\n}\n\n# user graphql type\nscalar DateTime\n\ntype User {\n  id: Int!\n  email: String\n  name: String\n  password: String\n  createdAt: DateTime\n  updatedAt: DateTime\n}\n"];
+export const typeDefs = ["scalar Date\n\nscalar Time\n\nscalar DateTime\n\ntype CreateUserResponse {\n  ok: Boolean!\n  error: String\n  user: User\n}\n\ninput CreateUserInput {\n  email: String!\n  name: String!\n  password: String!\n}\n\ntype Mutation {\n  CreateUser(createUserInput: CreateUserInput!): CreateUserResponse!\n  Login(email: String!, password: String!): LoginResponse!\n}\n\ntype GetUserResponse {\n  ok: Boolean!\n  error: String\n  user: User\n}\n\n# GetUsers Query type\ntype Query {\n  GetUser(id: Int!): GetUserResponse!\n  GetUsers: GetUsersResponse!\n}\n\n# GetUsers 응답 type\ntype GetUsersResponse {\n  ok: Boolean!\n  error: String\n  users: [User]\n}\n\ntype LoginResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\n# user graphql type\ntype User {\n  id: Int!\n  email: String\n  name: String\n  password: String\n  createdAt: DateTime\n  updatedAt: DateTime\n}\n"];
 /* tslint:disable */
 
 export interface Query {
@@ -35,10 +35,16 @@ export interface GetUsersResponse {
 
 export interface Mutation {
   CreateUser: CreateUserResponse;
+  Login: LoginResponse;
 }
 
 export interface CreateUserMutationArgs {
   createUserInput: CreateUserInput;
+}
+
+export interface LoginMutationArgs {
+  email: string;
+  password: string;
 }
 
 export interface CreateUserInput {
@@ -52,3 +58,13 @@ export interface CreateUserResponse {
   error: string | null;
   user: User | null;
 }
+
+export interface LoginResponse {
+  ok: boolean;
+  error: string | null;
+  token: string | null;
+}
+
+export type Date = any;
+
+export type Time = any;

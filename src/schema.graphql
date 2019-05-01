@@ -1,3 +1,9 @@
+scalar Date
+
+scalar Time
+
+scalar DateTime
+
 type CreateUserResponse {
   ok: Boolean!
   error: String
@@ -12,6 +18,7 @@ input CreateUserInput {
 
 type Mutation {
   CreateUser(createUserInput: CreateUserInput!): CreateUserResponse!
+  Login(email: String!, password: String!): LoginResponse!
 }
 
 type GetUserResponse {
@@ -33,9 +40,13 @@ type GetUsersResponse {
   users: [User]
 }
 
-# user graphql type
-scalar DateTime
+type LoginResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
 
+# user graphql type
 type User {
   id: Int!
   email: String
