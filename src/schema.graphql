@@ -27,10 +27,10 @@ type GetUserResponse {
   user: User
 }
 
-# GetUsers Query type
 type Query {
   GetUser(id: Int!): GetUserResponse!
   GetUsers: GetUsersResponse!
+  Me: User
 }
 
 # GetUsers 응답 type
