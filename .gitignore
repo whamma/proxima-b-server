@@ -1,1 +1,5 @@
+# 노드 모듈들
 node_modules
+
+# 환경설정 파일
+.env
