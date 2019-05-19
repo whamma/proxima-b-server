@@ -1,11 +1,14 @@
 import { Resolvers } from '../../../types/resolvers';
 import User from '../../../entities/User';
+import privateResolver from '../../../utils/privateResolver';
 
 const resolvers: Resolvers = {
   Query: {
-    Me: (_, __, { req }): User => {
-      return req.user;
-    },
+    Me: privateResolver(
+      async (_, __, { req }): Promise<User> => {
+        return req.user;
+      },
+    ),
   },
 };
 
